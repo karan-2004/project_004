@@ -1,7 +1,7 @@
 import database as db
 class employee:
     def __init__(self) -> None:
-        self.key=1324
+        self.stat=[0,0,0,0,0,0,0,0,0,0]
     def add_employee(self):
         id=input("id:")
         name=input("name:")

@@ -1,23 +1,27 @@
 import database as db
+from employee import emp as em
 class password:
     def auth(self,x):
-        self.stat=[1,1]
+        emp=None
         a=[str(x)]
         crsr=db.data.db.cursor()
         crsr.execute("SELECT emp_id FROM employees WHERE passcode=%s",tuple(a))
         for i in crsr:
            emp=i  
-        if(self.stat[emp[0]-1]==0):
-            crsr.execute("UPDATE REGISTER SET ENTRY_TIME=NOW() WHERE EMP_ID=%s AND DATE_OF_REGISTER=CURRENT_DATE AND CR_STATUS='O'",emp)
-            #
+        if(emp==None):
+            print('invalid password')
+            return 0
+
+        if(em.stat[emp[0]-1]==0):
+            crsr.execute("UPDATE REGISTER SET ENTRY_TIME=NOW() WHERE EMP_ID=%s AND DATE_OF_REGISTER=CURRENT_DATE",emp)
             db.data.db.commit()
-            self.stat[emp[0]-1]=1
-            main.main()
+            print("HAPPY TO HAVE YOU BACK!!")
+            em.stat[emp[0]-1]=1
         else:
-            crsr.execute("UPDATE REGISTER SET EXIT_TIME=NOW() WHERE EMP_ID=%s AND DATE_OF_REGISTER=CURRENT_DATE AND CR_STATUS='O'",emp)
-            #
+            crsr.execute("UPDATE REGISTER SET EXIT_TIME=NOW() WHERE EMP_ID=%s AND DATE_OF_REGISTER=CURRENT_DATE",emp)
             db.data.db.commit()    
-            self.stat[emp[0]-1]=0
+            em.stat[emp[0]-1]=0
+            print("WE WILL MISS YOU ALL THE NIGHT")
            
 
     
